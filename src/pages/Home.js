@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-
+import { apiGet } from '../misc/config';
 
 import MainPageLayouts from '../components/MainPageLayouts'
 
@@ -10,8 +10,7 @@ const Home = () => {
   const [results,setResults]=useState(null);
 
   const onSearch=()=>{
-    fetch(`https://api.tvmaze.com/search/shows?q=${input}`)
-    .then(r=>r.json())
+    apiGet(`/search/shows?q=${input}`)
     .then(result=>{
       setResults(result);
       console.log(result);
