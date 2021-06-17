@@ -9,8 +9,15 @@ const Home = () => {
 
   const [results,setResults]=useState(null);
 
+  const [searchOption,setSearchOptions]=useState('shows')
+
+  const isShowSearch=searchOption==='shows';
+
+
+
+
   const onSearch=()=>{
-    apiGet(`/search/shows?q=${input}`)
+    apiGet(`/search/${searchOption}?q=${input}`)
     .then(result=>{
       setResults(result);
       console.log(result);
@@ -27,27 +34,67 @@ const Home = () => {
     console.log(ev.keyCode)
   };
 
+
+const onRadioChange=(ev)=>{
+  setSearchOptions(ev.target.value)
+
+
+};
+console.log(searchOption);
+
+
+
   const renderResults=()=>{
     if(results && results.length===0){
       return <div> No Results</div>
     }
     if(results && results.length>0){
-      return <div> 
-      {results.map(item=>(
-      <div key={item.show.id}>{ item.show.name}</div>))}
+      return results[0].show? 
+      results.map(item=>(
+      <div key={item.show.id}>{ item.show.name}</div>))
       
-      </div>
-    }
-    return null;
+      :results.map(item=>(
+        <div key={item.person.id}>{ item.person.name}</div>))
+      
+      
+    
   }
+  return null;
+};
 
   return (
     <MainPageLayouts>
-      <input type="text" onChange= {onInputChange}  
+      <input 
+      placeholder="Search for Movie"
+      type="text"
+      
+      onChange= {onInputChange}  
       onKeyDown={onKeyDown} 
       value={input}
       />
+    <div>
+    <label htmlFor="show-search">
+      shows
+      <input id="show-search" 
+      type='radio'
+       value='shows' 
+       checked={isShowSearch}
+       onChange={onRadioChange}/>
+    </label>
 
+    <label htmlFor="actor-search">
+      Actor
+      <input  id="actor-search"
+       type='radio'
+        value='people'
+        checked={!isShowSearch}
+        onChange={onRadioChange}/>
+    </label>
+
+
+
+
+    </div>
       <button type='button' onClick={onSearch}>
          Search
         </button>
