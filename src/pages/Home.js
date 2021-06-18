@@ -8,16 +8,26 @@ import ActorGrid from '../components/actor/ActorGrid'
 
 const Home = () => {
 
-  const [input,setInput]=useState(' ');
+  // for input
+  const [input,setInput]=useState(' ');  
+
+  //  for results
 
   const [results,setResults]=useState(null);
 
   const [searchOption,setSearchOptions]=useState('shows')
 
-  const isShowSearch=searchOption==='shows';
+  const isShowSearch=searchOption==='shows';//  by default value
 
+// for use effect 
+//   useEffect(()=>{
+// console.log('use effect run')
 
+// return ()=>{
+//   console.log('exit')
+// }
 
+//   },[searchOption])
 
   const onSearch=()=>{
     apiGet(`/search/${searchOption}?q=${input}`)
