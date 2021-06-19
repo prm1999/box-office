@@ -24,11 +24,11 @@ function showsReducer(prevState,action){
 
 function usePersistedReducer(reducer,initialState,key){
 
-  const [state,dispatch]=useReducer(reducer,initialState,(initial)=>{
+  const [state,dispatch]=useReducer(reducer,initialState,initial=>{
 
     const persisted=localStorage.getItem(key);
     return persisted ?JSON.parse(persisted):initial;
-  })
+  });
   useEffect(()=>{
     localStorage.setItem(key,JSON.stringify(state))
 
@@ -36,6 +36,7 @@ function usePersistedReducer(reducer,initialState,key){
 
   return [state,dispatch];
 }
-export function useShow(key='show'){
+
+export function useShow(key='shows'){
  return usePersistedReducer(showsReducer,[],key);
 }

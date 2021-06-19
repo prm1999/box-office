@@ -103,10 +103,6 @@ console.log(searchOption);
         checked={!isShowSearch}
         onChange={onRadioChange}/>
     </label>
-
-
-
-
     </div>
       <button type='button' onClick={onSearch}>
          Search
