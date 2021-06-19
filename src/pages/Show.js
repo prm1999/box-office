@@ -1,6 +1,14 @@
+/* eslint no-underscore-dangle: 0 */
+
 import React ,{useEffect,useReducer} from 'react'
 import {useParams} from 'react-router-dom'
+import ShowMainData from '../components/show/ShowMainData';
+import Details from '../components/show/Details';
 import { apiGet } from '../misc/config';
+import Seasons from '../components/show/Seasons';
+import Cast from '../components/show/Cast';
+
+
 //  {useEffect}
 
 
@@ -37,8 +45,10 @@ const Show = () => {
   const {id}=useParams();
 
 
-   const [state,dispatch]=useReducer(reducer,initialState )
-//  {show,isLoading,error}
+   const [{show,isLoading,error},dispatch]=useReducer(
+     reducer,
+     initialState )
+//  
   // const [show,setShow]=useState(null)
   // console.log(id);
 
@@ -84,22 +94,49 @@ const Show = () => {
      }
 
   },[id])
-  console.log('state',state)
+  console.log(show,isLoading, error)
 
 
-  // console.log('show',show)
+  console.log('show',show)
 
 
-  // if(isLoading){
-  //   return<div>Date is loaded</div>
-  // }
+  if(isLoading){
+    return<div>Date is loaded</div>
+  }
 
-  // if (error){
-  //   return <div> Error occured ;{error}</div>
-  // }
+  if (error){
+    return <div> Error occured ;{error}</div>
+  }
   return (
     <div>
-  This is show pages
+  <ShowMainData 
+  image={show.image}
+   name={show.name}
+    rating={show.rating} 
+    summary={show.summary}
+    tags={show.genres}/>
+
+    <div>
+      <h2>Details</h2>
+        <Details 
+        status={show.status}
+        network={show.network}
+        premiered={show.premiered}
+        
+        />
+    </div>
+
+    <div>
+      <h2>Seasons</h2>
+      <Seasons seasons={show._embedded.seasons} /> 
+    </div>
+
+    <div>
+        <h2>Cast</h2>
+        <Cast cast={show._embedded.cast} />
+      </div>
+
+  
     </div>
   )
 }
