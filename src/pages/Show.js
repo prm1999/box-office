@@ -8,97 +8,100 @@ import { apiGet } from '../misc/config';
 import Seasons from '../components/show/Seasons';
 import Cast from '../components/show/Cast';
 import { InfoBlock, ShowPageWrapper } from './Show.styled';
+import { useShow } from '../misc/custom-hooks';
+//  commented part moved to costum hook
 
 
 //  {useEffect}
 
 
-const reducer=(prevState,action)=>{
+// const reducer=(prevState,action)=>{
 
-  switch (action.type){
-    case 'FETCH_SUCCESS':
-      {
-        return {...prevState,isLoading:false,error:null,  show:action.show}
-      }
+//   switch (action.type){
+//     case 'FETCH_SUCCESS':
+//       {
+//         return {...prevState,isLoading:false,error:null,  show:action.show}
+//       }
 
-    case 'FETCH_FAIL':{
-      return {...prevState,isLoading:false,error:action.error}
-    }
+//     case 'FETCH_FAIL':{
+//       return {...prevState,isLoading:false,error:action.error}
+//     }
 
-      default:return prevState
-  }
-}
-
-
+//       default:return prevState
+//   }
+// }
 
 
-const initialState={
-  show:null,
-  isLoading:true,
-  error:null
 
-}
+
+// const initialState={
+//   show:null,
+//   isLoading:true,
+//   error:null
+
+// }
 
 
 
 const Show = () => {
 
-  const {id}=useParams();
+const {id}=useParams();
+const {show,isLoading,error}=useShow(id)
 
 
-   const [{show,isLoading,error},dispatch]=useReducer(
-     reducer,
-     initialState )
-//  
-  // const [show,setShow]=useState(null)
-  // console.log(id);
+//    const [{show,isLoading,error},dispatch]=useReducer(
+//      reducer,
+//      initialState )
+// //  
+//   // const [show,setShow]=useState(null)
+//   // console.log(id);
 
 
-  // const [isLoading,setIsLoading]=useState(true);
+//   // const [isLoading,setIsLoading]=useState(true);
 
-  // const [error,setError]=useState(null)
+//   // const [error,setError]=useState(null)
 
-  useEffect(()=>{
+//   useEffect(()=>{
 
-    let isMounted=true;
+//     let isMounted=true;
 
-    apiGet(`/shows/${id}?embed[]=seasons&embed[]=cast`)
-    .then(results=>{
+//     apiGet(`/shows/${id}?embed[]=seasons&embed[]=cast`)
+//     .then(results=>{
 
-      setTimeout(()=>{
+//       setTimeout(()=>{
 
-        if(isMounted){
+//         if(isMounted){
 
-          dispatch({type:'FETCH_SUCCESS',show:results})
-        //   setShow(results);
-        // setIsLoading(false);
-        } 
-      },2000) //  for time out function
+//           dispatch({type:'FETCH_SUCCESS',show:results})
+//         //   setShow(results);
+//         // setIsLoading(false);
+//         } 
+//       },200) //  for time out function
 
 
-      // setShow(results);
+//       // setShow(results);
 
-    })
-    .catch(err=>{
-      if(isMounted){
-        dispatch({type:'FETCH_FAIL',error:err.message})
+//     })
+//     .catch(err=>{
+//       if(isMounted){
+//         dispatch({type:'FETCH_FAIL',error:err.message})
 
-        // setError(err.message);
-        // setIsLoading(false);
-      }
+//         // setError(err.message);
+//         // setIsLoading(false);
+//       }
       
 
-     } );
+//      } );
 
-     return ()=>{
-       isMounted=false;
-     }
+//      return ()=>{
+//        isMounted=false;
+//      }
 
-  },[id])
-  console.log(show,isLoading, error)
+//   },[id])
+  // console.log(show,isLoading, error)
 
 
-  console.log('show',show)
+  // console.log('show',show)
 
 
   if(isLoading){

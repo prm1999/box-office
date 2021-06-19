@@ -4,12 +4,13 @@ import { apiGet } from '../misc/config';
 import MainPageLayouts from '../components/MainPageLayouts'
 import ShowGrid from '../components/show/ShowGrid';
 import ActorGrid from '../components/actor/ActorGrid'
+import { useLastQuery } from '../misc/custom-hooks';
 
 
 const Home = () => {
 
   // for input
-  const [input,setInput]=useState(' ');  
+  const [input,setInput]=useLastQuery();  
 
   //  for results
 
