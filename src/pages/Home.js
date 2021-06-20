@@ -6,6 +6,7 @@ import ShowGrid from '../components/show/ShowGrid';
 import ActorGrid from '../components/actor/ActorGrid'
 import { useLastQuery } from '../misc/custom-hooks';
 import {SearchInput,RadioInputsWrapper,SearchButtonWrapper} from './Home.styled'
+import CustomRadio from '../components/CustomRadio';
 
 const Home = () => {
 
@@ -89,24 +90,27 @@ console.log(searchOption);
 
     <RadioInputsWrapper>
       <div>
-    <label htmlFor="show-search">
-      shows
-      <input id="show-search" 
-      type='radio'
-       value='shows' 
-       checked={isShowSearch}
-       onChange={onRadioChange}/>
-    </label>
+    <CustomRadio
+    label ="Shows"
+    id="show-search" 
+    type='radio'
+    value='shows' 
+    checked={isShowSearch}
+    onChange={onRadioChange}
+    />
+    
     </div>
     <div>
-    <label htmlFor="actor-search">
-      Actor
-      <input  id="actor-search"
-       type='radio'
-        value='people'
-        checked={!isShowSearch}
-        onChange={onRadioChange}/>
-    </label>
+    <CustomRadio
+    label ="Shows"
+    id="actor-search"
+     value='people'
+     checked={!isShowSearch}
+     onChange={onRadioChange}
+
+    />
+    
+     
     </div>
     </RadioInputsWrapper>
 
