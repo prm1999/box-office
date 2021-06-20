@@ -5,7 +5,7 @@ import MainPageLayouts from '../components/MainPageLayouts'
 import ShowGrid from '../components/show/ShowGrid';
 import ActorGrid from '../components/actor/ActorGrid'
 import { useLastQuery } from '../misc/custom-hooks';
-
+import {SearchInput,RadioInputsWrapper,SearchButtonWrapper} from './Home.styled'
 
 const Home = () => {
 
@@ -78,7 +78,7 @@ console.log(searchOption);
 
   return (
     <MainPageLayouts>
-      <input 
+      <SearchInput 
       placeholder="Search for Movie"
       type="text"
       
@@ -86,7 +86,9 @@ console.log(searchOption);
       onKeyDown={onKeyDown} 
       value={input}
       />
-    <div>
+
+    <RadioInputsWrapper>
+      <div>
     <label htmlFor="show-search">
       shows
       <input id="show-search" 
@@ -95,7 +97,8 @@ console.log(searchOption);
        checked={isShowSearch}
        onChange={onRadioChange}/>
     </label>
-
+    </div>
+    <div>
     <label htmlFor="actor-search">
       Actor
       <input  id="actor-search"
@@ -105,9 +108,13 @@ console.log(searchOption);
         onChange={onRadioChange}/>
     </label>
     </div>
-      <button type='button' onClick={onSearch}>
+    </RadioInputsWrapper>
+
+    <SearchButtonWrapper>
+      <  button type='button' onClick={onSearch}>
          Search
-        </button>
+        </ button>
+        </SearchButtonWrapper>
         {renderResults()}
     </MainPageLayouts>
   )
