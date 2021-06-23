@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useCallback} from 'react'
 import { apiGet } from '../misc/config';
 
 import MainPageLayouts from '../components/MainPageLayouts'
@@ -6,7 +6,7 @@ import ShowGrid from '../components/show/ShowGrid';
 import ActorGrid from '../components/actor/ActorGrid'
 import { useLastQuery } from '../misc/custom-hooks';
 import {SearchInput,RadioInputsWrapper,SearchButtonWrapper} from './Home.styled'
-import CustomRadio from '../components/CustomRadio';
+import CustomRadio, { useWhyDidYouUpdate } from '../components/CustomRadio';
 
 const Home = () => {
 
@@ -31,6 +31,9 @@ const Home = () => {
 
 //   },[searchOption])
 
+
+
+
   const onSearch=()=>{
     apiGet(`/search/${searchOption}?q=${input}`)
     .then(result=>{
@@ -38,10 +41,11 @@ const Home = () => {
       console.log(result);
     })
   };
-  const onInputChange=(ev)=>{
+  const onInputChange=useCallback((ev)=>{
     setInput(ev.target.value);
 
-  };
+  },[setInput]);
+
   const onKeyDown=ev=>{
     if (ev.keyCode === 13){
   onSearch();
@@ -49,12 +53,11 @@ const Home = () => {
     console.log(ev.keyCode)
   };
 
-
-const onRadioChange=(ev)=>{
+const onRadioChange=useCallback((ev)=>{
   setSearchOptions(ev.target.value)
 
 
-};
+},[]);
 console.log(searchOption);
 
 
@@ -102,7 +105,7 @@ console.log(searchOption);
     </div>
     <div>
     <CustomRadio
-    label ="Shows"
+    label ="Actors"
     id="actor-search"
      value='people'
      checked={!isShowSearch}

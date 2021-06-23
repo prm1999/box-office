@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react'
+import React, { useState ,useEffect,memo} from 'react'
 import MainPageLayouts from '../components/MainPageLayouts'
 import ShowGrid from '../components/show/ShowGrid';
 import { apiGet } from '../misc/config';
@@ -40,4 +40,4 @@ const Starred = () => {
   );
 };
 
-export default Starred;
+export default memo (Starred);
